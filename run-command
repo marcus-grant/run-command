@@ -23,6 +23,16 @@ Attributes:
         with it.
 
 Todo:
+    * Get tests running correctly using pytest
+        * Get run-tests.py to run test files inside tests/
+        * Setup test for print_usage
+        * Test for valid argument parameter patterns
+        * Beautify run-tests.py output
+            * http://bit.ly/2mCsTqB
+        * Iterate TDD of script
+    * Implement some kind of script bundling for distribution to at least ~/bin
+        * helpful links:
+            * http://bit.ly/2mIIxB1
     * Fill in Docstring Sections
     * Option for running command and kill after a given time string
         * Validate these options
@@ -60,7 +70,20 @@ def until_runner():
 
 def print_usage(args, exit_code=0):
     from sys import exit
-    print("TODO: Create useful usage output")
+    msg = "TODO: Improve Usage PrintOut!!!"
+    usage = 'usage: run-command [--help | -h] <command>\n'
+    usage += '[--prepositionX | -prepositionX][<preposition_object>] ...'
+    desc = 'description: '
+    desc += 'A semantic command runner for any host OS that support Python 2.7.\n'
+    desc += 'FOR NOW, uses only prepositional phrases linked in order.\n'
+    desc += 'Prepositions are arguments of pattern --preposition, of'
+    desc += ' a recognized preposition followed by a preposition object.'
+    desc += 'The preposition object can be any string that evaluates\n'
+    desc += ' correctly based on the preposition before it.'
+    desc += 'The first statement after "run-command" & preceeding a \n'
+    desc += 'single-dash(-something) or double-dash(--something) is the\n'
+    desc += 'statement'
+
     exit(exit_code)
 
 
