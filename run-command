@@ -1,0 +1,130 @@
+#!/usr/bin/env python2.7
+
+# -*- coding: utf-8 -*-
+"""run-command
+A semantic shell command runner. Uses argparse to run shell commands with added
+complexity. Options like --for that specifies either for how long or how many
+times a command is run.
+
+Example:
+    Examples can be given using either the ``Example`` or ``Examples``
+    sections. Sections support any reStructuredText formatting, including
+    literal blocks::
+
+        $ python example_google.py
+
+Attributes:
+    module_level_variable1 (int): Module level variables may be documented in
+        either the ``Attributes`` section of the module docstring, or in an
+        inline docstring immediately following the variable.
+
+        Either form is acceptable, but the two should not be mixed. Choose
+        one convention to document module level variables and be consistent
+        with it.
+
+Todo:
+    * Fill in Docstring Sections
+    * Option for running command and kill after a given time string
+        * Validate these options
+        * Test this option
+    * Add more prepositions as they will be most useful command runners
+        * with
+        * at
+        * from
+        * during
+        * including
+        * while
+        * when
+        * after
+        * before
+        * following
+        * and
+    * Write article about semantic prog'ing & importance in coding (abstract)
+
+"""
+
+def until_runner():
+    """Function call for the '--until' argument.
+
+    Represents the semantic preposition 'until' from the english language.
+    Takes a function string to run till a certain given condition is met.
+
+
+    Args:
+        cmd_str (str): The first parameter.
+        until_condition (function): The second parameter.
+
+    Returns:
+        bool: None. Runs command & exits w/ command exits shell with exit code
+    """
+
+def print_usage(args, exit_code=0):
+    from sys import exit
+    print("TODO: Create useful usage output")
+    exit(exit_code)
+
+
+def handle_dry_run(args):
+    print "TODO: Implement this feature"
+    print 'args given: ' + str(args)
+
+
+def check_global_halt_opts(argv):
+    """Check for special arguments that alter execution if one is present
+
+    There are some arguments that will alter the execution if present.
+    Flags like --help ignore all other args and print usage.
+    --dryrun (--dry-run -d) creates a dry run of the run-command w/ debug output
+    """
+    # dictionary of special args and their functions that handle it and halt ex
+    help_args_to_func = {
+            '--help': print_usage,
+            '-h': print_usage,
+    }
+
+    dry_run_args_to_func = {
+            '--dry-run': handle_dry_run,
+            '--dryrun': handle_dry_run,
+            '-d': handle_dry_run,
+    }
+
+    # Assemble switch dictionaries into an ordered list of importance.
+    # First dictionaries will get detected first and their associated halting 
+    # function will get called first.
+    args_to_check = [help_args_to_func, dry_run_args_to_func]
+
+    # get the function from the switcher dictionary, exit without any call if none
+    prioritized_halt_func = None
+    for arg in argv:
+        print "Checking arg: " + str(arg)
+        for arg_to_check in args_to_check:
+            print "Checking against: " + str(arg_to_check)
+            prioritized_halt_func = arg_to_check.get(str(arg))
+            if prioritized_halt_func:
+                print "halt_func found on arg: " + str(arg)
+                prioritized_halt_func(argv)
+            else:
+                print "\n"
+    print "[DEBUG]: no global halt detected, continuing."
+
+
+def process_sentence(sentence_dict):
+    print("TODO: Implement this process")
+
+
+if __name__ == '__main__':
+    """Executes the script from shell
+
+    For now, the first option after this script's name is the command string to run.
+    After that it will look for an option with --option or -o style syntax and
+    determine if it's a preposition or a global option like --help or --test,
+    which should immediately alter execution.
+
+    Prepositions are the truly useful sentence parts in this script, and they
+    are associated with a command runner like until_runner for --until.
+    Prepositions (probably will change) are immediately paired with a 
+    preposition_obj forming a semantic prepositional phrase.
+    """
+    from sys import argv
+    check_global_halt_opts(argv)
+
